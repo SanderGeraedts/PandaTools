@@ -10,14 +10,27 @@ function toggleNavPanel(x){
     }
 }
 
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+            break;
+        }
+    }
+}
+
 function toggleCheckbox(cbId){
     var checkbox = document.getElementById(cbId);
 
     if(checkbox.alt == 'checkbox - unchecked'){
+        checkbox.style.opacity = 0;
         checkbox.src = 'assets\\img\\cbChecked.png';
         checkbox.alt = 'checkbox - checked'
+        checkbox.style.opacity = 1;
     } else{
+        checkbox.style.opacity = 0;
         checkbox.src = 'assets\\img\\cbUnchecked.png';
         checkbox.alt = 'checkbox - unchecked'
+        checkbox.style.opacity = 1;
     }
 }
