@@ -29,3 +29,55 @@ function checkHoursSpent(spent, allocated) {
         }
     }
 }
+
+function convertDueDate(dateString){
+    var result = 0;
+
+    var day = dateString.substring(0,2);
+    var month = dateString.substring(3,5);
+    var year = dateString.substring(6);
+
+    if(day.length == 2){
+        if(day.substring(0,1) == '0') {
+            day = day.substring(1, 2);
+        }
+    }
+
+    if(month.length == 2){
+        if(month.substring(0,1) == '0') {
+            month = month.substring(1, 2);
+        }
+    }
+
+    if(year.length == 2){
+        year = "20" + year;
+    }
+
+    day = parseInt(day);
+    month = parseInt(month);
+    year = parseInt(year);
+
+    currentDate = new Date();
+
+    result += (day - currentDate.getDate());
+    result += ((month - (currentDate.getMonth()+1))*30.5);
+    result += ((year - currentDate.getFullYear())*365.25);
+
+    result = parseInt(result);
+
+    return result;
+}
+
+function checkDueDate(invoiceClass){
+    var invoices = document.getElementsByClassName(invoiceClass);
+
+    for(var i = 0; i < invoices.length; i++){
+        var duedate = invoices[i].getElementsByClassName('daysDue')[0];
+        duedate.innerText = convertDueDate(duedate.innerText);
+        if(duedate.innerText < 0){
+            duedate.style.color = '#FF0000';
+        }
+
+        duedate.innerText += ' days';
+    }
+}

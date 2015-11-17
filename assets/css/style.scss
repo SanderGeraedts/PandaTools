@@ -254,7 +254,7 @@ select:active, select:focus{
   outline: 0;
 }
 
-.supportTicket{
+.supportTicket, .invoice{
   margin: 20px 0;
   padding: 10px;
 
@@ -262,6 +262,8 @@ select:active, select:focus{
   border-bottom: 1px solid $colLogo;
 
   background-color: $colWhite;
+
+  height: auto;
 
   .title{
     font-size: $fontsize + 4;
@@ -277,9 +279,41 @@ select:active, select:focus{
     float: right;
     opacity: 1;
   }
+}
+
+.supportTicket{
 
   .subpage{
     display: block;
     width: 100%;
+  }
+}
+
+.invoice{
+  .description{
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: height 0.25s linear;
+  }
+
+  b{
+    width: 50%;
+    display: inline-block;
+  }
+
+  .dateSent, .daysDue{
+    width: 50%;
+    display: inline-block;
+  }
+
+  .price{
+    display: block;
+    width: 100%;
+    text-align: right;
+    color: #00FF00;
+    font-size: $fontsize+8;
   }
 }
