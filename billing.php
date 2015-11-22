@@ -38,7 +38,7 @@
 <div class="wrapper">
     <nav id="tools">
         <ul>
-            <li><a href="#">New invoice</a></li>
+            <li><a href="invoice.php">New invoice</a></li>
         </ul>
     </nav>
     <select id="filter" onchange="filterPaid(this.id, 'invoice')">

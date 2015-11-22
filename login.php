@@ -34,7 +34,7 @@
             <input id="tbUsername" type="text" name="tbUsername" placeholder="Username"><br />
             <label for="tbPassword">Password:</label><br />
             <input id="tbPassword" type="password" name="tbPassword" placeholder="Password"><br />
-            <input name="btnLogin" type="submit" value="Log in" onclick=showError("error")>
+            <input name="btnLogin" type="submit" value="Log in" onclick=showError('error')>
         </main>
     </form>
 </div>

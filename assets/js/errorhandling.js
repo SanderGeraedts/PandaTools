@@ -81,3 +81,18 @@ function checkDueDate(invoiceClass){
         duedate.innerText += ' days';
     }
 }
+
+function checkSentDate(checkboxId, textboxId, labelId){
+    var checkbox = document.getElementById(checkboxId);
+    var textbox = document.getElementById(textboxId);
+    var label = document.getElementById(labelId);
+
+    if(checkbox.checked == true){
+        textbox.style.display = 'inline-block';
+        label.style.display = 'inline-block';
+    }
+    else{
+        textbox.style.display = 'none';
+        label.style.display = 'none';
+    }
+}

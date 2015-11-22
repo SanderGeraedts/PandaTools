@@ -30,7 +30,7 @@
             <ul>
                 <li><a href="index.php">Projects</a></li>
                 <li><a href="support.php">Support</a></li>
-                <li><a href="#">Billing</a></li>
+                <li><a href="billing.php">Billing</a></li>
             </ul>
         </nav>
     </div>

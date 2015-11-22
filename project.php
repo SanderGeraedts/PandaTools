@@ -41,9 +41,31 @@
 <div class="wrapper">
     <nav id="tools">
         <ul>
-            <li><a href="#">New Sprint</a></li>
+            <li><a href="#">Add Sprint</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">Add Contact</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">View Invoices</a></li>
         </ul>
     </nav>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>E-Mail</th>
+                <th>Function</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jan Geraedts</td>
+                <td><a href="mailto:jcjg.geraedts@kpnmail.nl?Subject=Code%20Panda">jcjg.geraedts@kpnmail.nl</a></td>
+                <td>Secretaris</td>
+            </tr>
+        </tbody>
+    </table>
     <section class="sprint">
         <a href="#">Sprint 1</a>
         <b>Time spent / allocated:</b> <span class="hrsSpent">37.5</span> / <span class="hrsAllocated">40</span> hrs
