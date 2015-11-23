@@ -6,6 +6,8 @@
  * Time: 17:06
  */
 
+namespace PandaLogic;
+
 class Database{
 
     /**
