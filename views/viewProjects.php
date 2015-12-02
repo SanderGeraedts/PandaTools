@@ -8,8 +8,7 @@
 
 namespace PandaViews;
 
-require('..\logic\User.php');
-require('..\logic\Project.php');
+require('/../logic/Loader.php');
 
 use PandaLogic\Project;
 use PandaLogic\User;
@@ -20,13 +19,13 @@ class viewProjects
     private $loggedIn;
 
     public function __construct(){
-//        if($_SESSION["loggedIn"] != null && $_SESSION["loggedIn"] != false){
-//            $this->loggedIn = $_SESSION["loggedIn"];
-//        }
-//        else{
-//            header('Location: login.php');
-//            die();
-//        }
+        if($_SESSION["loggedIn"] != null && $_SESSION["loggedIn"] != false){
+            $this->loggedIn = $_SESSION["loggedIn"];
+        }
+        else{
+            header('Location: login.php');
+            die();
+        }
 
         $this->loggedIn = new User(1, 'Sander', 'Test', 'Job', null, null);
 

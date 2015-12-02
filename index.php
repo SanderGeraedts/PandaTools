@@ -8,7 +8,7 @@
 
 require('views\viewProjects.php');
 
-$view = new \PandaViews\viewProjects();
+$view = new PandaViews\viewProjects();
 
 ?>
 

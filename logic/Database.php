@@ -18,7 +18,7 @@ class Database{
     }
 
     public static function checkLogIn($username, $password){
-        if(false){
+        if($username == 'admin' && $password == 'admin'){
             return true;
         }
         else{
