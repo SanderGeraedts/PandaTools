@@ -17,21 +17,32 @@ class Sprint
     private $timeSpent;
     private $timeAllocated;
     private $description;
-    private $deliverables;
+    private $deliverables = array();
 
-    public function getId(){ return $this->id; }
-    public function getTitle(){ return $this->title; }
-    public function getOrder(){ return $this->order; }
-    public function getTimeSpent(){ return $this->timeSpent; }
-    public function getTimeAllocated(){ return $this->timeAllocated; }
-    public function getDescription(){ return $this->description; }
-    public function getDeliverables(){ return $this->deliverables; }
+    private $fillable = array('title', 'order', 'timeSpent', 'timeAllowed', 'description');
+    private $accessible = array('id', 'title', 'order', 'timeSpent', 'timeAllowed', 'description', 'deliverables');
+    private $required = array('id', 'title', 'description');
 
-    public function setTitle($value){ $this->title = $value; }
-    public function setOrder($value){ $this->order = $value; }
-    public function setTimeSpent($value){ $this->timeSpent = $value; }
-    public function setTimeAllocated($value){ $this->timeAllocated = $value; }
-    public function setDescription($value){ $this->description = $value; }
+    public function __set ($name, $value) {
+        if (in_array($name, $this->fillable)) {
+            if (isset($this->$name)) {
+                $this->$name = $value;
+            }
+        }
+
+        return null;
+    }
+    public function __get ($name) {
+
+        // Do not return if not accessible
+        if (in_array($name, $this->accessible)) {
+            if (isset($this->$name)) {
+                return $this->$name;
+            }
+        }
+
+        return null;
+    }
 
     public function addDeliverable($value){ array_push($this->deliverables, $value); }
 
@@ -55,19 +66,17 @@ class Sprint
      * @param $description
      * @param $deliverables
      */
-    public function __construct($id, $title, $order, $timeSpent, $timeAllocated, $description, $deliverables){
-        $this->id = $id;
-        $this->title = $title;
-        $this->order = $order;
-        $this->timeSpent = $timeSpent;
-        $this->timeAllocated = $timeAllocated;
-        $this->description = $description;
+    public function __construct(Array $params = array()){
+        if(count($params) > 0){
+            foreach ($params as $key => $value) {
+                $this->$key = $value;
+            }
 
-        if(isset($deliverables)) {
-            $this->deliverables = $deliverables;
-        }
-        else{
-            $this->deliverables = array();
+            foreach($this->required as $key){
+                if(!isset($this->$key)){
+                    throw new \InvalidArgumentException('Invalid use of constructor:\n' . $key . ' can\'t be empty');
+                }
+            }
         }
     }
 }

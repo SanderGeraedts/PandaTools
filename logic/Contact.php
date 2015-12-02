@@ -21,24 +21,30 @@ class Contact
     private $zipcode;
     private $city;
 
-    public function getId(){ return $this->id; }
-    public function getName(){ return $this->nane; }
-    public function getOrganisation(){ return $this->organisation; }
-    public function getFunction(){ return $this->function; }
-    public function getAddress(){ return $this->address; }
-    public function getPhoneNumber(){ return $this->phoneNumber; }
-    public function getEmail(){ return $this->email; }
-    public function getZipcode(){ return $this->zipcode; }
-    public function getCity(){ return $this->city; }
+    private $fillable = array('name', 'organisation', 'function', 'address', 'phoneNumber', 'email', 'zipcode');
+    private $accessible = array('id', 'name', 'organisation', 'function', 'address', 'phoneNumber', 'email', 'zipcode');
+    private $required = array('id', 'name');
 
-    public function setName($value){ $this->name = $value; }
-    public function setOrganisation($value){ $this->organisation = $value; }
-    public function setFunction($value){ $this->function = $value; }
-    public function setAddress($value){ $this->address = $value; }
-    public function setPhoneNumber($value){ $this->phoneNumber = $value; }
-    public function setEmail($value){ $this->email = $value; }
-    public function setZipcode($value){ $this->zipcode = $value; }
-    public function setCity($value){ $this->city = $value; }
+    public function __set ($name, $value) {
+        if (in_array($name, $this->fillable)) {
+            if (isset($this->$name)) {
+                $this->$name = $value;
+            }
+        }
+
+        return null;
+    }
+    public function __get ($name) {
+
+        // Do not return if not accessible
+        if (in_array($name, $this->accessible)) {
+            if (isset($this->$name)) {
+                return $this->$name;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * @param $id           int:
@@ -50,15 +56,18 @@ class Contact
      * @param $zipcode      string:
      * @param $city         string:
      */
-    public function __construct($id, $name,$organisation, $address, $phoneNumber, $email, $zipcode, $city){
-        $this->id = $id;
-        $this->name = $name;
-        $this->organisation = $organisation;
-        $this->address = $address;
-        $this->phoneNumber = $phoneNumber;
-        $this->email = $email;
-        $this->zipcode = $zipcode;
-        $this->city = $city;
+    public function __construct(Array $params = array()){
+        if(count($params) > 0){
+            foreach ($params as $key => $value) {
+                $this->$key = $value;
+            }
+
+            foreach($this->required as $key){
+                if(!isset($this->$key)){
+                    throw new \InvalidArgumentException('Invalid use of constructor:\n' . $key . ' can\'t be empty');
+                }
+            }
+        }
     }
 
     /**

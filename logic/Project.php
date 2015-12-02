@@ -13,19 +13,35 @@ class Project
 {
     private $id;
     private $description;
-    private $contacts;
-    private $sprints;
-    private $planning;
-    private $invoices;
+    private $contacts = array();
+    private $sprints = array();
+    private $planning = array();
+    private $invoices = array();
 
-    public function getId(){ return $this->id; }
-    public function getDescription(){ return $this->description; }
-    public function getContacts(){ return $this->contacts; }
-    public function getSprints(){ return $this->sprints; }
-    public function getPlanning(){ return $this->planning; }
-    public function getInvoices(){ return $this->invoices; }
+    private $fillable = array('description');
+    private $accessible = array('id', 'description', 'contacts', 'sprints', 'planning', 'invoices');
+    private $required = array('id');
 
-    public function setDescription($value){ $this->description = $value;}
+    public function __set ($name, $value) {
+        if (in_array($name, $this->fillable)) {
+            if (isset($this->$name)) {
+                $this->$name = $value;
+            }
+        }
+
+        return null;
+    }
+    public function __get ($name) {
+
+        // Do not return if not accessible
+        if (in_array($name, $this->accessible)) {
+            if (isset($this->$name)) {
+                return $this->$name;
+            }
+        }
+
+        return null;
+    }
 
     public function addContact($value){ array_push($this->contacts, $value); }
     public function addSprint($value){ array_push($this->sprints, $value); }
@@ -84,13 +100,18 @@ class Project
      * @param $planning     Array<Planning>:    An array with the availability
      * @param $invoices     Array<Invoice>:
      */
-    public function __construct($id, $description, $contacts, $sprints, $planning, $invoices){
-        $this->id = $id;
-        $this->description = $description;
-        $this->contacts = $contacts;
-        $this->sprints = $sprints;
-        $this->planning = $planning;
-        $this->invoices = $invoices;
+    public function __construct(Array $params = array()){
+        if(count($params) > 0){
+            foreach ($params as $key => $value) {
+                $this->$key = $value;
+            }
+
+            foreach($this->required as $key){
+                if(!isset($this->$key)){
+                    throw new \InvalidArgumentException('Invalid use of constructor:\n' . $key . ' can\'t be empty');
+                }
+            }
+        }
     }
 
     /**

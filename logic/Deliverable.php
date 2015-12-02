@@ -18,18 +18,30 @@ class Deliverable
     private $url;
     private $feedback;
 
-    public function getId(){ return $this->id; }
-    public function getTimeSent(){ return $this->timeSent; }
-    public function getTimeFeedback(){ return $this->timeFeedback; }
-    public function getAccepted(){ return $this->accepted; }
-    public function getUrl(){ return $this->url; }
-    public function getFeedback(){ return $this->feedback; }
+    private $fillable = array('timeSent', 'timeFeedback', 'accepted', 'url', 'feedback');
+    private $accessible = array('id', 'timeSent', 'timeFeedback', 'accepted', 'url', 'feedback');
+    private $required = array('id');
 
-    public function setTimeSent($value){ $this->timeSent = $value; }
-    public function setTimeFeedback($value){ $this->timeFeedback = $value; }
-    public function setAccepted($value){ $this->accepted = $value; }
-    public function setUrl($value){ $this->url = $value; }
-    public function setFeedback($value){ $this->feedback = $value; }
+    public function __set ($name, $value) {
+        if (in_array($name, $this->fillable)) {
+            if (isset($this->$name)) {
+                $this->$name = $value;
+            }
+        }
+
+        return null;
+    }
+    public function __get ($name) {
+
+        // Do not return if not accessible
+        if (in_array($name, $this->accessible)) {
+            if (isset($this->$name)) {
+                return $this->$name;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * @param $id           int:
@@ -39,12 +51,17 @@ class Deliverable
      * @param $url          string:
      * @param $feedback     string:
      */
-    public function __construct($id, $timeSent, $timeFeedback, $accepted, $url, $feedback){
-        $this->id = $id;
-        $this->timeSent = $timeSent;
-        $this->timeFeedback = $timeFeedback;
-        $this->accepted = $accepted;
-        $this->url = $url;
-        $this->feedback = $feedback;
+    public function __construct(Array $params = array()){
+        if(count($params) > 0){
+            foreach ($params as $key => $value) {
+                $this->$key = $value;
+            }
+
+            foreach($this->required as $key){
+                if(!isset($this->$key)){
+                    throw new \InvalidArgumentException('Invalid use of constructor:\n' . $key . ' can\'t be empty');
+                }
+            }
+        }
     }
 }

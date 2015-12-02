@@ -4,7 +4,13 @@
  * User: Sander Geraedts
  * Date: 27/10/2015
  * Time: 14:53
- */ ?>
+ */
+
+require('views\viewProjects.php');
+
+$view = new \PandaViews\viewProjects();
+
+?>
 
 <!DOCTYPE html>
 
@@ -52,11 +58,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><a href="project.php">Codepanda.nl</a></td>
-                    <td>Designfase</td>
-                    <td>This is test data just to fill up the table and to see how it looks like with a bunch of text writen in it. I thinks this just about covers it.</td>
-                </tr>
+                <?php $view->populateTable(); ?>
             </tbody>
         </table>
     </div>

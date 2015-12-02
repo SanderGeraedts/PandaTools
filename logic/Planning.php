@@ -11,25 +11,51 @@ namespace PandaLogic;
 
 class Planning
 {
-    private $id;
-    private $startTime;
-    private $endTime;
+	private $id;
+	private $startTime;
+	private $endTime;
 
-    public function getId(){ return $this->id; }
-    public function getStartTime(){ return $this->startTime; }
-    public function getEndTime(){ return $this->endTime; }
+	private $fillable = array('startTime', 'endTime');
+	private $accessible = array('id', 'startTime', 'endTime');
+	private $required = array('id');
 
-    public function setStartTime($value){ $this->startTime = $value; }
-    public function setEndTime($value){ $this->endTime = $value; }
+	public function __set ($name, $value) {
+		if (in_array($name, $this->fillable)) {
+			if (isset($this->$name)) {
+				$this->$name = $value;
+			}
+		}
 
-    /**
-     * @param $id           int:
-     * @param $startTime    dateTime:
-     * @param $endTime      dateTime:
-     */
-    public function __construct($id, $startTime, $endTime){
-        $this->id = $id;
-        $this->startTime = $startTime;
-        $this->endTime = $endTime;
-    }
+		return null;
+	}
+	public function __get ($name) {
+
+		// Do not return if not accessible
+		if (in_array($name, $this->accessible)) {
+			if (isset($this->$name)) {
+				return $this->$name;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param $id           int:
+	 * @param $startTime    dateTime:
+	 * @param $endTime      dateTime:
+	 */
+	public function __construct(Array $params = array()){
+		if(count($params) > 0){
+			foreach ($params as $key => $value){
+				$this->$key = $value;
+			}
+
+			foreach($this->required as $key){
+				if(!isset($this->$key)){
+					throw new \InvalidArgumentException('Invalid use of constructor:\n' . $key . ' can\'t be empty');
+				}
+			}
+		}
+	}
 }
