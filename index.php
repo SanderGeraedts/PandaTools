@@ -5,8 +5,10 @@
  * Date: 27/10/2015
  * Time: 14:53
  */
+session_start();
+ob_start();
 
-require('views\viewProjects.php');
+require_once('views\viewProjects.php');
 
 $view = new PandaViews\viewProjects();
 

@@ -19,8 +19,8 @@ class Sprint
     private $description;
     private $deliverables = array();
 
-    private $fillable = array('title', 'order', 'timeSpent', 'timeAllowed', 'description');
-    private $accessible = array('id', 'title', 'order', 'timeSpent', 'timeAllowed', 'description', 'deliverables');
+    private $fillable = array('title', 'order', 'timeSpent', 'timeAllocated', 'description');
+    private $accessible = array('id', 'title', 'order', 'timeSpent', 'timeAllocated', 'description', 'deliverables');
     private $required = array('id', 'title', 'description');
 
     public function __set ($name, $value) {

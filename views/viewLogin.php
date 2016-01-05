@@ -8,10 +8,26 @@
 
 namespace PandaViews;
 
+require('/../logic/User.php');
+require('/../logic/Database.php');
 
-class viewLogin
-{
-    public function __construct(){
+use PandaLogic\User;
 
+
+class viewLogin{
+
+    private $username;
+    private $password;
+
+
+    public function checkLogin($username, $password)
+    {
+        $this->username = $username;
+        $this->password = $password;
+
+        $user =  User::CheckLogin($this->username, $this->password);
+        $_SESSION["loggedIn"] = serialize($user);
+
+        header('Location: index.php');
     }
 }

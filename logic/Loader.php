@@ -8,7 +8,7 @@
 
 function autoload ($className) {
 
-    $file = dirname(__FILE__) . '/' . $className . '.php';
+    $file = dirname(__DIR__) . '/../logic/' . $className . '.php';
     if (file_exists($file)) {
         require $file;
     }

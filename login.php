@@ -4,7 +4,22 @@
  * User: Sander Geraedts
  * Date: 06/11/2015
  * Time: 17:40
- */ ?>
+ */
+
+session_start();
+ob_start();
+
+if(isset($_POST['tbUsername']) && $_POST['tbPassword']) {
+    require('views\viewLogin.php');
+
+    $username = $_POST['tbUsername'];
+    $password = $_POST['tbPassword'];
+
+    $view = new PandaViews\viewLogin();
+
+    $view->checkLogin($username, $password);
+}
+?>
 
 <!DOCTYPE html>
 
@@ -27,14 +42,14 @@
     </div>
 </header>
 <div class="wrapper">
-    <form id="login" >
+    <form id="login" method="POST" action="login.php">
         <main id="mainLogin">
             <span id="error">Your credentials are incorrect.</span>
             <label for="tbUsername">Username:</label><br />
             <input id="tbUsername" type="text" name="tbUsername" placeholder="Username"><br />
             <label for="tbPassword">Password:</label><br />
             <input id="tbPassword" type="password" name="tbPassword" placeholder="Password"><br />
-            <input name="btnLogin" type="submit" value="Log in" onclick=showError('error')>
+            <input name="btnLogin" type="submit" value="Log in" onclick="">
         </main>
     </form>
 </div>

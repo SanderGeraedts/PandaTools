@@ -17,9 +17,18 @@ class Database{
 
     }
 
+    /**
+     * @param $id           int:
+     * @param $username     string:
+     * @param $password     string:
+     * @param $job          string:     Either Job or Client
+     * @param $contact      Contact:
+     * @param $projects     Project:
+     */
+
     public static function checkLogIn($username, $password){
         if($username == 'admin' && $password == 'admin'){
-            return true;
+            return new User(array('id'=>1, 'username'=>$username, 'password'=>$password));
         }
         else{
             return false;

@@ -12,15 +12,16 @@ namespace PandaLogic;
 class Project
 {
     private $id;
+    private $name;
     private $description;
     private $contacts = array();
     private $sprints = array();
     private $planning = array();
     private $invoices = array();
 
-    private $fillable = array('description');
-    private $accessible = array('id', 'description', 'contacts', 'sprints', 'planning', 'invoices');
-    private $required = array('id');
+    private $fillable = array('name', 'description', 'contacts', 'sprints', 'planning', 'invoices');
+    private $accessible = array('id', 'name', 'description', 'contacts', 'sprints', 'planning', 'invoices');
+    private $required = array('id', 'name');
 
     public function __set ($name, $value) {
         if (in_array($name, $this->fillable)) {
