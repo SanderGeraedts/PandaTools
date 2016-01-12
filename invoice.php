@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>Code Panda</title>
-    <link href="assets\css\style.css" rel = stylesheet />
+    <link href="assets/css/style.css" rel = stylesheet />
     <link href="#" rel="shortcut icon">
     <meta name="description" content="Code Panda, webdevelopment en design met een persoonlijke touch. Actief in de regio Best en Eindhoven, maar natuurlijk ook daarbuiten.">
     <meta name="author" content="Code Panda - www.codepanda.nl">
@@ -23,7 +23,7 @@
     <div class= "wrapper">
         <div class="logo">
             Panda Tools
-            <button id="hamburger" onclick="toggleNavPanel('navigation')"><img src="assets\img\hamburger.png" alt="Menu button"/></button>
+            <button id="hamburger" onclick="toggleNavPanel('navigation')"><img src="assets/img/hamburger.png" alt="Menu button"/></button>
         </div>
         <nav id="navigation">
             <ul>
@@ -62,7 +62,7 @@
         <input name="btnSubmit" type="submit" value="Send invoice">
     </form>
 </div>
-<script src="assets\js\responsive.js"></script>
-<script src="assets\js\errorhandling.js"></script>
+<script src="assets/js/responsive.js"></script>
+<script src="assets/js/errorhandling.js"></script>
 </body>
 </html>

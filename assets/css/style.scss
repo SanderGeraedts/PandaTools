@@ -197,13 +197,12 @@ form{
 }
 
 #error{
+  display: block;
   border: 1px solid ($colError + 150);
   background-color: $colError + 225;
   width: 100%;
   padding: 5px;
   margin-bottom: 5px;
-  display: none;
-  opacity: 0;
   transition: opacity 1.0s linear;
   font-size: $fontsize - 2pt;
 }

@@ -8,7 +8,7 @@
 session_start();
 ob_start();
 
-require_once('views\viewProjects.php');
+require_once('views/viewProjects.php');
 
 $view = new PandaViews\viewProjects();
 
@@ -19,7 +19,7 @@ $view = new PandaViews\viewProjects();
 <html>
 <head>
     <title>Code Panda</title>
-    <link href="assets\css\style.css" rel = stylesheet />
+    <link href="assets/css/style.css" rel = stylesheet />
     <link href="#" rel="shortcut icon">
     <meta name="description" content="Code Panda, webdevelopment en design met een persoonlijke touch. Actief in de regio Best en Eindhoven, maar natuurlijk ook daarbuiten.">
     <meta name="author" content="Code Panda - www.codepanda.nl">
@@ -27,21 +27,21 @@ $view = new PandaViews\viewProjects();
     <meta charset="UTF-8">
 </head>
 <body>
-    <header>
-        <div class= "wrapper">
-            <div class="logo">
-                Panda Tools
-                <button id="hamburger" onclick="toggleNavPanel('navigation')"><img src="assets\img\hamburger.png" alt="Menu button"/></button>
-            </div>
-            <nav id="navigation">
-                <ul>
-                    <li><a href="index.php">Projects</a></li>
-                    <li><a href="support.php">Support</a></li>
-                    <li><a href="billing.php">Billing</a></li>
-                </ul>
-            </nav>
+<header>
+    <div class= "wrapper">
+        <div class="logo">
+            Panda Tools
+            <button id="hamburger" onclick="toggleNavPanel('navigation')"><img src="assets/img/hamburger.png" alt="Menu button"/></button>
         </div>
-    </header>
+        <nav id="navigation">
+            <ul>
+                <li><a href="index.php">Projects</a></li>
+                <li><a href="support.php">Support</a></li>
+                <li><a href="billing.php">Billing</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
     <div class="wrapper">
         <nav id="tools">
             <ul>
@@ -64,6 +64,6 @@ $view = new PandaViews\viewProjects();
             </tbody>
         </table>
     </div>
-    <script src="assets\js\responsive.js"></script>
+    <script src="assets/js/responsive.js"></script>
 </body>
 </html>

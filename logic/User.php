@@ -15,11 +15,10 @@ namespace PandaLogic {
 		private $id;
 		private $username;
 		private $password;
-		private $job;
 		private $contact;
 		private $projects = array();
 
-		private $fillable = array('username', 'password', 'job', 'contact');
+		private $fillable = array('username', 'password', 'job', 'contact', 'projects');
 		private $accessible = array('id', 'username', 'password', 'job', 'contact', 'projects');
 		private $required = array('id', 'username', 'password');
 
@@ -44,7 +43,9 @@ namespace PandaLogic {
 			return null;
 		}
 
-		public function addProject($value){ array_push($this->projects, $value); }
+		public function addProjects($value){
+            array_push($this->projects, $value);
+        }
 
 		public function removeProject($value){
 			$key = array_search($value, $this->projects);
@@ -88,7 +89,8 @@ namespace PandaLogic {
 		 */
 		public static function CheckLogin($username, $password)
 		{
-			$user = Database::checkLogIn($username, $password);
+			$database = new Database();
+			$user = $database->checkLogIn($username, $password);
 
 			if (isset($user)) {
 				return $user;

@@ -10,14 +10,21 @@ session_start();
 ob_start();
 
 if(isset($_POST['tbUsername']) && $_POST['tbPassword']) {
-    require('views\viewLogin.php');
+    require('views/viewLogin.php');
 
     $username = $_POST['tbUsername'];
     $password = $_POST['tbPassword'];
+    $error = "";
 
     $view = new PandaViews\viewLogin();
 
-    $view->checkLogin($username, $password);
+    if($view->checkLogin($username, $password) == false){
+        $error = "Your credentials are invalid.";
+    }
+
+
+} else if(isset($_POST['btnLogin'])){
+    $error = "Some of your credentials aren't filled in.";
 }
 ?>
 
@@ -26,7 +33,7 @@ if(isset($_POST['tbUsername']) && $_POST['tbPassword']) {
 <html>
 <head>
     <title>Code Panda</title>
-    <link href="assets\css\style.css" rel = stylesheet />
+    <link href="assets/css/style.css" rel = stylesheet />
     <link href="#" rel="shortcut icon">
     <meta name="description" content="Code Panda, webdevelopment en design met een persoonlijke touch. Actief in de regio Best en Eindhoven, maar natuurlijk ook daarbuiten.">
     <meta name="author" content="Code Panda - www.codepanda.nl">
@@ -44,7 +51,7 @@ if(isset($_POST['tbUsername']) && $_POST['tbPassword']) {
 <div class="wrapper">
     <form id="login" method="POST" action="login.php">
         <main id="mainLogin">
-            <span id="error">Your credentials are incorrect.</span>
+            <span id="error"><?php echo $error; ?></span>
             <label for="tbUsername">Username:</label><br />
             <input id="tbUsername" type="text" name="tbUsername" placeholder="Username"><br />
             <label for="tbPassword">Password:</label><br />
@@ -53,6 +60,6 @@ if(isset($_POST['tbUsername']) && $_POST['tbPassword']) {
         </main>
     </form>
 </div>
-<script src="assets\js\errorhandling.js"></script>
+<script src="assets/js/errorhandling.js"></script>
 </body>
 </html>

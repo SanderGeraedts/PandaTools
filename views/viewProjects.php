@@ -8,14 +8,15 @@
 
 namespace PandaViews;
 
-require('/../logic/Loader.php');
-require('/../logic/User.php');
-require('/../logic/Project.php');
-require('/../logic/Sprint.php');
+require('logic/User.php');
+require('logic/Project.php');
+require('logic/Sprint.php');
+require('logic/Database.php');
 
 use PandaLogic\Project;
 use PandaLogic\Sprint;
 use PandaLogic\User;
+use PandaLogic\Database;
 
 class viewProjects
 {
@@ -31,42 +32,32 @@ class viewProjects
             $_SESSION["lastPage"] = __FILE__;
             die();
         }
-
-//        $this->loggedIn = new User(array(1, 'Sander', 'Test', 'Job', null, null));
-//
-//        $project1 = new Project(array(1, 'test1', null, null, null, null));
-//
-//        $this->loggedIn->addProject($project1);
-//        $this->loggedIn->addProject($project2);
-//        $this->loggedIn->addProject($project3);
     }
 
     public function populateTable(){
         $projects = $this->loggedIn->projects;
+        $database = new Database();
 
-        $sprints[] = new Sprint(array('id'=>1, 'title'=>'Onderzoeksfase', 'order'=>1, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
-        $sprints[] = new Sprint(array('id'=>2, 'title'=>'Design Fase', 'order'=>2, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
-        $sprints[] = new Sprint(array('id'=>3, 'title'=>'Implementeer Fase', 'order'=>3, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
+        if($projects == null){
+            $this->loggedIn->projects = $database->getProjectsForUser($this->loggedIn->id);
 
-        $sprints1[] = new Sprint(array('id'=>1, 'title'=>'Onderzoeksfase', 'order'=>1, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
-        $sprints1[] = new Sprint(array('id'=>2, 'title'=>'Design Fase', 'order'=>2, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'Dit is een voorbeeld tekst.'));
+            $projects = $this->loggedIn->projects;
+        }
 
-        $sprints2[] = new Sprint(array('id'=>1, 'title'=>'Onderzoeksfase', 'order'=>1, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
-        $sprints2[] = new Sprint(array('id'=>2, 'title'=>'Design Fase', 'order'=>2, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
-        $sprints2[] = new Sprint(array('id'=>3, 'title'=>'Implementeer Fase', 'order'=>3, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'test'));
-        $sprints2[] = new Sprint(array('id'=>4, 'title'=>'Test Fase', 'order'=>3, 'timeSpent'=>25, 'timeAllocated'=>40,'description'=>'In deze fase zijn we aan het testen of het project zin heeft gehad.'));
-
-        $projects[] = new Project(array('id'=>1, 'name'=>'PC Amitie', 'description'=>'This is a description', 'sprints'=>$sprints));
-        $projects[] = new Project(array('id'=>2, 'name'=>'VVNBest','description'=>'This is another description', 'sprints'=>$sprints1));
-        $projects[] = new Project(array('id'=>3, 'name'=>'Code Panda','description'=>'This is the last description', 'sprints'=>$sprints2));
+        foreach($this->loggedIn->projects as $project){
+            $project->sprints = $database->getSprintsForProject($project->id);
+        }
 
         foreach($projects as $project) {
+
             $index = count($project->sprints);
             $index--;
 
             if($project->sprints != null && $index>=0) {
+                $id = $project->id - 1;
+
                 echo '<tr>
-                    <td><a href="project.php?query=' . $project->id . '"' . '>'.$project->name.'</a></td>
+                    <td><a href="project.php?query=' . $id . '"' . '>'.$project->name.'</a></td>
                     <td>' . $project->sprints[$index]->title . '</td>
                     <td>' . $project->sprints[$index]->description . '</td>
                 </tr>';
@@ -80,5 +71,8 @@ class viewProjects
                 }
             }
         }
+
+        $this->loggedIn->projects = $projects;
+        $_SESSION["loggedIn"] = serialize($this->loggedIn);
     }
 }
