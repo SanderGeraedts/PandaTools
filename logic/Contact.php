@@ -20,11 +20,10 @@ class Contact
     private $email;
     private $zipcode;
     private $city;
-    private $job;
 
-    private $fillable = array('name', 'organisation', 'function', 'address', 'phoneNumber', 'email', 'zipcode', 'job');
-    private $accessible = array('id', 'name', 'organisation', 'function', 'address', 'phoneNumber', 'email', 'zipcode', 'job');
-    private $required = array('id', 'name');
+    private $fillable = array('name', 'organisation', 'function', 'address', 'phoneNumber', 'email', 'zipcode');
+    private $accessible = array('id', 'name', 'organisation', 'function', 'address', 'phoneNumber', 'email', 'zipcode');
+    private $required = array('id', 'name', 'function');
 
     public function __set ($name, $value) {
         if (in_array($name, $this->fillable)) {

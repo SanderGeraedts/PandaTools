@@ -25,6 +25,15 @@ class Database
         mysqli_close($this->conn);
     }
 
+    private function executeSQL($sql){
+        if($this->conn->query($sql)){
+            return true;
+        }else{
+            echo $sql;
+            return false;
+        }
+    }
+
     public function checkLogIn($username, $password){
         $sql = "SELECT * FROM CP_USER u WHERE u.Username = '" . $username . "' AND u.Password = '" . $password . "';";
 
@@ -45,7 +54,7 @@ class Database
 
     public function getProjectsForUser($id){
         $sql = "SELECT p.Id, p.Title, p.Description FROM PROJECT p, PROJECT_USERS u WHERE p.Id = u.ProjectId AND u.UserId = " . $id . ";";
-        echo $sql;
+
         $command = @mysqli_query($this->conn, $sql);
 
         $projects = array();
@@ -76,5 +85,40 @@ class Database
             }
         }
         return $sprints;
+    }
+
+    public function getContactsForProject($id){
+        $sql = "SELECT * FROM CONTACT c WHERE c.ProjectId = " . $id . ";";
+
+        $command = @mysqli_query($this->conn, $sql);
+
+        $contacts = array();
+
+        if($command){
+            while($row = mysqli_fetch_array($command)) {
+                $contact = new Contact(array('id'=>$row['Id'],'name'=>$row['Name'], 'organisation'=>$row['Organisation'], 'function' => $row['Job'], 'address' => $row['Address'], 'phoneNumber'=>$row['PhoneNumber'], 'email'=>$row['Email'], 'zipcode'=>$row['Zipcode'], 'city'=>$row['City']));
+
+                array_push($contacts, $contact);
+            }
+        }
+        return $contacts;
+    }
+
+    public function addContact($projectId, $name, $organisation, $address, $phoneNumber, $email, $zipcode, $city, $job){
+        $sql = "INSERT INTO CONTACT(ProjectId, Name, Organisation, Address, PhoneNumber, Email, Zipcode, City, Job) VALUES (" . $projectId .", '" . $name . "', '" . $organisation . "', '" . $address ."', '" . $phoneNumber . "', '" . $email . "', '" . $zipcode . "', '" . $city . "', '" . $job . "');";
+        if($this->executeSQL($sql)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function addSprint($projectId, $title, $timeAllocated, $description){
+        $sql = "INSERT INTO SPRINT(ProjectId, Title, SprintOrder, TimeSpent, TimeAllocated, Description) VALUES (" . $projectId . ", '" . $title . "', 0, 0, " . $timeAllocated . ", '" . $description . "')";
+        if($this->executeSQL($sql)) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

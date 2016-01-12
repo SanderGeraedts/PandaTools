@@ -44,13 +44,13 @@ $view = new PandaViews\viewProject();
 <div class="wrapper">
     <nav id="tools">
         <ul>
-            <li><a href="#">Add Sprint</a></li>
+            <li><a href="addSprint.php?project=<?php $view->getProjectId() ?>">Add Sprint</a></li>
         </ul>
         <ul>
-            <li><a href="#">Add Contact</a></li>
+            <li><a href="addContact.php?project=<?php $view->getProjectId() ?>">Add Contact</a></li>
         </ul>
         <ul>
-            <li><a href="#">View Invoices</a></li>
+            <li><a href="billing.php?project=<?php $view->getProjectId() ?>">View Invoices</a></li>
         </ul>
     </nav>
     <table>
@@ -62,11 +62,7 @@ $view = new PandaViews\viewProject();
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Jan Geraedts</td>
-                <td><a href="mailto:jcjg.geraedts@kpnmail.nl?Subject=Code%20Panda">jcjg.geraedts@kpnmail.nl</a></td>
-                <td>Secretaris</td>
-            </tr>
+            <?php $view->loadContacts() ?>
         </tbody>
     </table>
     <?php $view->loadSprints(); ?>
