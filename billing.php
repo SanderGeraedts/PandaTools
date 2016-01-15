@@ -4,7 +4,12 @@
  * User: Sander Geraedts
  * Date: 16/11/2015
  * Time: 12:29
- */?>
+ */
+
+session_start();
+ob_start();
+
+?>
 
 
 <!DOCTYPE html>

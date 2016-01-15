@@ -121,4 +121,24 @@ class Database
             return false;
         }
     }
+
+    public function addProject($name, $description){
+        $sql = "INSERT INTO PROJECT(Title, Description) VALUES ('" . $name . "', '" . $description . "');";
+
+        if($this->executeSQL($sql)){
+            $sql = "SELECT p.Id FROM PROJECT p WHERE p.Title = '" . $name . "' AND p.Description = '" . $description . "';";
+            $command = @mysqli_query($this->conn, $sql);
+
+            if($command){
+                while($row = mysqli_fetch_array($command)){
+                    $project = new Project(array('id'=>$row['Id'], 'name'=> $name, 'description'=>$description));
+                    return $project;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 }

@@ -47,7 +47,7 @@ $view->addContact();
 </header>
 <div class="wrapper">
     <form id="formContact" method="post" action="addContact.php">
-        <span id="error"><?php echo $view->showError(); ?></span>
+        <span id="error"><?php $view->showError(); ?></span>
         <select id="selProject" name="selProject">
             <option value=1>Codepanda.nl</option>
             <option value=2>VVNBest.nl</option>

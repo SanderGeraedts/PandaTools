@@ -74,7 +74,7 @@ class viewAddContact{
                 $database = new Database();
                 if($database->addContact($projectId, $name, $organisation, $address, $phoneNr, $email, $zipcode, $city, $function)){
                     $index = $projectId - 1;
-                    header('Location: project.php?query=' . $projectId);
+                    header('Location: project.php?query=' . $index);
                     die();
                 }else{
                     echo $projectId . '<br />';
